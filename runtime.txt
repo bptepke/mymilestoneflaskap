@@ -5,3 +5,5 @@ io
 quandl
 base64
 pandas
+simplejson
+requests
