@@ -1,5 +1,8 @@
 pandas
 bokeh
+seaborn
+matplotlib
+requests
 dill
 flask
 jinja2
