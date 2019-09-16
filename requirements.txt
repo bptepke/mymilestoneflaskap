@@ -3,7 +3,6 @@ requests==2.20.0
 pandas
 seaborn
 matplotlib
-requests
 dill
 flask
 jinja2
