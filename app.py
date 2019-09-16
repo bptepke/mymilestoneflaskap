@@ -46,6 +46,7 @@ def get_data(company):
     # Specific company must be provided to avoid excessive data volume
     data = quandl.get_table("WIKI/PRICES",ticker = company , paginate=True)
     return data
-
-if __name__ == '__main__':
-  app.run(port=33507)
+  
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
