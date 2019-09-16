@@ -1,1 +1,7 @@
 python-3.6.5
+seaborn
+matplotlib
+io
+quandl
+base64
+pandas
