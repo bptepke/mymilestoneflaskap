@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, redirect
-import quandl
+#import quandl
+import simplejson as json
+import requests
 import pandas as pd
+#import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import io
@@ -9,7 +12,7 @@ import base64
 sns.set(style="whitegrid")
 
 # Authenticate quandl account so quandl will serve the data
-quandl.ApiConfig.api_key = "rEUZzxLS2ZKmFWRrMG1Q"
+#quandl.ApiConfig.api_key = "rEUZzxLS2ZKmFWRrMG1Q"
 
 app = Flask(__name__)
 
@@ -44,9 +47,20 @@ def process_stock():
   
 def get_data(company):
     # Specific company must be provided to avoid excessive data volume
-    data = quandl.get_table("WIKI/PRICES",ticker = company , paginate=True)
+    #data = quandl.get_table("WIKI/PRICES",ticker = company , paginate=True)
+    # https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?api_key=rEUZzxLS2ZKmFWRrMG1Q 
+    dataurl = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker='+company+'&api_key=rEUZzxLS2ZKmFWRrMG1Q'
+    rawdata = requests.get(dataurl)
+    
+    rawdata1 = rawdata.json()
+    data = pd.DataFrame(rawdata1['datatable']['data'], columns=['ticker','date','open','high','low','close','a','b','c','d','e','f','g','h'])
+
     return data
+
+#if __name__ == '__main__':
+#  app.run(port=33507)
   
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
